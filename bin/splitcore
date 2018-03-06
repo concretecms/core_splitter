@@ -1,31 +1,71 @@
 #!/bin/bash
 
-cd temp
-rm -r concrete5
-git clone git@github.com:concrete5/concrete5.git
-cd concrete5
+# Exit immediately if a pipeline, a list, or a compound command, exits with a non-zero status.
+set -o errexit
+# Any trap on ERR is inherited by shell functions, command substitutions, and commands executed in a subshell environment.
+set -o errtrace
+# The return value of a pipeline is the value of the last (rightmost) command to exit with a non-zero status, or zero if all commands in the pipeline exit successfully
+set -o pipefail
+# Treat unset variables and parameters other than the special parameters "@" and "*" as an error when performing parameter expansion.
+set -o nounset
 
-# move to a headless state
-# in order to delete all branches without issues
-git checkout --detach
+echo '# Setup working directory'
+WORKDIR="$(pwd)/temp"
+mkdir --parents --mode=0770 "${WORKDIR}"
 
-# delete all branches
-git branch | grep --invert-match "*" | xargs git branch -D
-
-# get all local branches for remote
-git branch --remotes --no-color | grep --invert-match "\->" | while read remote; do
-    git checkout --track "$remote"
+echo '# Waiting previous processes'
+exec 9>"${WORKDIR}/lock.file"
+WAITLOCK=1
+while :; do
+	flock --exclusive --timeout 3 9 && WAITLOCK=0 || true
+	if [ $WAITLOCK -eq 0 ]; then
+		break;
+	fi
+	echo '... still waiting...'
 done
 
-# remove remote and remote branches
-git remote remove origin
+DO_CLONE=1
+if [ -f "${WORKDIR}/source/config" ]; then
+	echo '# Updating source repository'
+	git --git-dir="${WORKDIR}/source" remote update --prune && DO_CLONE=0 || true
+fi
+if [ $DO_CLONE -eq 1 ]; then
+	echo '# Cloning source repository'
+	rm -rf "${WORKDIR}/source"
+	git clone --no-checkout  --mirror https://github.com/concrete5/concrete5.git "${WORKDIR}/source"
+fi
 
+echo '# Creating working repository'
+rm -rf "${WORKDIR}/work"
+git clone --local --no-checkout --bare "${WORKDIR}/source" "${WORKDIR}/work"
+
+echo '# Filtering commits'
+rm -rf "${WORKDIR}/work.filtering"
 # Isolate dir1 and recreate branches
-# --prune-empty removes all commits that do not modify dir1
-# -- --all updates all existing references, which is all existing branches
-git filter-branch --prune-empty --tag-name-filter cat --subdirectory-filter concrete -- --all
+# --subdirectory-filter concrete
+#	Only look at the history which touches the given subdirectory
+# --tag-name-filter cat
+#   Update the tags
+# --prune-empty
+#   Remove commits that leave the tree untouched
+# -d <directory>
+#	The path to the temporary directory used for rewriting
+# -- --all
+#	Update all existing references, which is all existing branches
+git --git-dir="${WORKDIR}/work" \
+	filter-branch \
+	--subdirectory-filter concrete \
+	--tag-name-filter cat \
+	--prune-empty \
+	-d "${WORKDIR}/work.filtering" \
+	-- --all
+rm -rf "${WORKDIR}/work.filtering"
 
-git push --all git@github.com:concrete5/concrete5-core.git -f
-git push --tags git@github.com:concrete5/concrete5-core.git -f
-cd ..
-rm -rf concrete5
+echo '# Pushing branches'
+git --git-dir="${WORKDIR}/work" push --all --force git@github.com:concrete5/concrete5-core.git
+
+echo '# Pushing tags'
+git --git-dir="${WORKDIR}/work" push --tags --force git@github.com:concrete5/concrete5-core.git
+
+echo '# Cleanup'
+rm -rf "${WORKDIR}/work"
