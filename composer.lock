@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "44228f8a557698268df4d42c33c8459e",
+    "content-hash": "de8f0bbcf214f73fa656a660be003d1f",
     "packages": [
         {
             "name": "container-interop/container-interop",
@@ -143,6 +143,49 @@
                 "service"
             ],
             "time": "2017-03-06T15:24:06+00:00"
+        },
+        {
+            "name": "mlocati/incremental-git-filter-branch",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mlocati/incremental-git-filter-branch.git",
+                "reference": "647f56077df43054ba3a0a2676537944edfa54c6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mlocati/incremental-git-filter-branch/zipball/647f56077df43054ba3a0a2676537944edfa54c6",
+                "reference": "647f56077df43054ba3a0a2676537944edfa54c6",
+                "shasum": ""
+            },
+            "bin": [
+                "bin/incremental-git-filterbranch"
+            ],
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michele Locati",
+                    "email": "michele@locati.it",
+                    "homepage": "https://mlocati.github.io",
+                    "role": "author"
+                }
+            ],
+            "description": "Shell script to call git filter-branch in an incremental way",
+            "homepage": "https://github.com/mlocati/incremental-git-filter-branch",
+            "keywords": [
+                "bash",
+                "filter-branch",
+                "git",
+                "incremental",
+                "posix",
+                "progressive",
+                "shell"
+            ],
+            "time": "2018-03-16T16:37:59+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -455,6 +498,7 @@
             "keywords": [
                 "git"
             ],
+            "abandoned": true,
             "time": "2017-01-23T20:57:12+00:00"
         },
         {

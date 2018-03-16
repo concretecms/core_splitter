@@ -9,8 +9,13 @@
       "email": "korvinszanto@gmail.com"
     }
   ],
-  "bin": ["bin/splitcore"],
+  "require": {
+    "mlocati/incremental-git-filter-branch": "^1.1.0"
+  },
+  "config": {
+    "process-timeout": 0
+  },
   "scripts": {
-    "build": "splitcore"
+    "build": "incremental-git-filterbranch --branch-whitelist 'develop master rx:release\\/.*' --tag-blacklist 'rx:5\\..*' --tags-plan all --prune-branches --prune-tags https://github.com/concrete5/concrete5.git '--prune-empty --subdirectory-filter concrete' git@github.com:concrete5/concrete5-core.git"
   }
 }
