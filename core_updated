@@ -1,0 +1,14 @@
+#!/bin/sh
+
+SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+
+"${SCRIPT_DIR}/incremental-filter-branch/bin/incremental-git-filterbranch" \
+	--workdir "${SCRIPT_DIR}/temp" \
+	--branch-whitelist 'develop master rx:release\/.*' \
+	--tag-blacklist 'rx:5\..*' \
+	--prune-branches --prune-tags \
+	--tags-plan all --tags-max-history-lookup 10 \
+	-- \
+	git@github.com:concrete5/concrete5.git \
+	'--prune-empty --subdirectory-filter concrete' \
+	git@github.com:concrete5/concrete5-core.git
