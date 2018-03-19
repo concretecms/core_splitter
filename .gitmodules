@@ -1,0 +1,4 @@
+[submodule "incremental-filter-branch"]
+	path = incremental-filter-branch
+	url = https://github.com/concrete5/incremental-filter-branch.git
+	branch = master
