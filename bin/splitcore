@@ -13,7 +13,11 @@ IFB_VERSION=1.0.2
 SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
 
 # Store in WORK_DIR the directory that will contain the working repositories
-WORK_DIR=${SCRIPT_DIR}/../temp
+if test -z "${SPLITCORE_DATADIR:-}"; then
+	WORK_DIR=${SCRIPT_DIR}/../temp
+else
+	WORK_DIR=$SPLITCORE_DATADIR/temp
+fi
 
 # Store in IFB_PATH the path of the incremental-filter-branch directory
 IFB_PATH=${SCRIPT_DIR}/../vendor/bin
