@@ -10,7 +10,11 @@ set -o nounset
 SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
 
 # Store in LOG_DIR the directory that will contain the logs
-LOG_DIR=${SCRIPT_DIR}/../logs
+if test -z "${SPLITCORE_DATADIR:-}"; then
+	LOG_DIR=${SCRIPT_DIR}/../logs
+else
+	LOG_DIR=$SPLITCORE_DATADIR/logs
+fi
 
 # Store in LOG_FILE the full path of the log file
 # The log file will be in format YYYY-MM.log in UTC time (-u), so we'll have one log file per month
