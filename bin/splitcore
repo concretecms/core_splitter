@@ -25,7 +25,7 @@ IFB_BIN=${IFB_PATH}/incremental-git-filterbranch
 # Perform the incremental filter-branch operation
 "${IFB_BIN}" \
 	--workdir "${WORK_DIR}" \
-	--branch-whitelist 'develop master rx:.*-dev rx:release\/.*' \
+	--branch-whitelist 'develop master rx:.*-dev rx:.*\.x rx:release\/.*' \
 	--tag-blacklist 'rx:5\..*' \
 	--prune-branches --prune-tags \
 	--tags-plan all --tags-max-history-lookup 10 \
