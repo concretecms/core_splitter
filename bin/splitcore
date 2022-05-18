@@ -30,6 +30,6 @@ IFB_BIN=${IFB_PATH}/incremental-git-filterbranch
 	--prune-branches --prune-tags \
 	--tags-plan all --tags-max-history-lookup 10 \
 	-- \
-	git@github.com:concrete5/concrete5.git \
+	git@github.com:concretecms/concretecms.git \
 	'--prune-empty --subdirectory-filter concrete' \
-	git@github.com:concrete5/concrete5-core.git
+	git@github.com:concretecms/concretecms-core.git
