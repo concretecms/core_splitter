@@ -1,23 +1,23 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6b57e985dc13caa74563fafa48bfd60b",
+    "content-hash": "7ab1289b0d2953cfcb969ba016aeaf1e",
     "packages": [
         {
-            "name": "concrete5/incremental-filter-branch",
-            "version": "1.0.2",
+            "name": "concretecms/incremental-filter-branch",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
-                "url": "https://github.com/concrete5/incremental-filter-branch.git",
-                "reference": "987ed0c003ba53a475a240ff5168c4298c09fea0"
+                "url": "https://github.com/concretecms/incremental-filter-branch.git",
+                "reference": "6940eef8b0e27e7c0769549d49a93571e9c25467"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/concrete5/incremental-filter-branch/zipball/987ed0c003ba53a475a240ff5168c4298c09fea0",
-                "reference": "987ed0c003ba53a475a240ff5168c4298c09fea0",
+                "url": "https://api.github.com/repos/concretecms/incremental-filter-branch/zipball/6940eef8b0e27e7c0769549d49a93571e9c25467",
+                "reference": "6940eef8b0e27e7c0769549d49a93571e9c25467",
                 "shasum": ""
             },
             "bin": [
@@ -47,7 +47,11 @@
                 "progressive",
                 "shell"
             ],
-            "time": "2018-03-21T11:27:19+00:00"
+            "support": {
+                "issues": "https://github.com/concrete5/incremental-filter-branch/issues",
+                "source": "https://github.com/concrete5/incremental-filter-branch"
+            },
+            "time": "2023-11-29T18:09:35+00:00"
         }
     ],
     "packages-dev": [],
@@ -57,5 +61,6 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "2.3.0"
 }

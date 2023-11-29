@@ -14,6 +14,6 @@
     "build": "splitcore_logged"
   },
   "require": {
-    "concrete5/incremental-filter-branch": "^1.0"
+    "concretecms/incremental-filter-branch": "^1.0"
   }
 }
